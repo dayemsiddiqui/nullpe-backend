@@ -1,34 +1,53 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { DiscussionService } from './discussion.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateDiscussionDto } from './dto/create-discussion.dto';
 import { UpdateDiscussionDto } from './dto/update-discussion.dto';
+import { CreateDiscussionUseCase } from './usecases/CreateDiscussionUseCase';
 
 @Controller('discussion')
 export class DiscussionController {
-  constructor(private readonly discussionService: DiscussionService) {}
+  constructor(
+    private readonly createDiscussionUseCase: CreateDiscussionUseCase,
+  ) {}
 
   @Post()
   create(@Body() createDiscussionDto: CreateDiscussionDto) {
-    return this.discussionService.create(createDiscussionDto);
+    return this.createDiscussionUseCase.create(
+      'Test Question',
+      'Sample Description',
+    );
   }
 
   @Get()
   findAll() {
-    return this.discussionService.findAll();
+    return this.createDiscussionUseCase.create(
+      'Test Question',
+      'Sample Description',
+    );
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.discussionService.findOne(+id);
+    return null;
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateDiscussionDto: UpdateDiscussionDto) {
-    return this.discussionService.update(+id, updateDiscussionDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateDiscussionDto: UpdateDiscussionDto,
+  ) {
+    return null;
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.discussionService.remove(+id);
+    return null;
   }
 }
