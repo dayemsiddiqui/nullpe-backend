@@ -12,4 +12,5 @@ export class Question extends Post {
   getTitle(value: string): string {
     return this.title;
   }
+
 }
