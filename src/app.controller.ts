@@ -14,6 +14,7 @@ export class AppController {
     return {
       dbname: this.configService.get<string>('database.name'),
       mongoURI: this.configService.get<string>('database.uri'),
+      status: 'fuck up',
     };
   }
 }
