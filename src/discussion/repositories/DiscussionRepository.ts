@@ -9,13 +9,13 @@ export class DiscussionRepository implements OnModuleInit {
   private collection: Collection<DiscussionDatabaseModel>;
   private readonly logger = new Logger(DiscussionRepository.name);
 
-  // constructor(
-  //   @Inject('DATABASE_CONNECTION')
-  //   private db: Db,
-  // ) {}
+  constructor(
+    @Inject('DATABASE_CONNECTION')
+    private db: Db,
+  ) {}
 
   onModuleInit(): void {
-    // this.collection = this.db.collection(DiscussionRepository.COLLECTION_NAME);
+    this.collection = this.db.collection(DiscussionRepository.COLLECTION_NAME);
   }
 
   async save(discussion: Discussion): Promise<void> {

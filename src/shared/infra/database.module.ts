@@ -1,17 +1,22 @@
 import { Module } from '@nestjs/common';
 import { MongoClient, Db } from 'mongodb';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   providers: [
     {
       provide: 'DATABASE_CONNECTION',
-      useFactory: async (): Promise<Db> => {
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService): Promise<Db> => {
         try {
-          const client = await MongoClient.connect(process.env.MONGO_URI, {
-            useUnifiedTopology: true,
-          });
+          const client = await MongoClient.connect(
+            configService.get<string>('database.uri'),
+            {
+              useUnifiedTopology: true,
+            },
+          );
 
-          return client.db(process.env.DB_NAME);
+          return client.db(configService.get<string>('database.name'));
         } catch (e) {
           throw e;
         }
